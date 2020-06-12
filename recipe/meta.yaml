@@ -13,6 +13,8 @@ source:
   fn: {{ name }}-{{ version }}.{{ compress_type }}
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
   {{ hash_type }}: {{ hash }}
+  patches:
+    fix_werkzeug.patch
 
 build:
   noarch: python
@@ -20,6 +22,9 @@ build:
   script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
+  build:
+    - m2-patch  # [win]
+    - patch     # [not win]
   host:
     - pip
     - python
