@@ -1,25 +1,18 @@
 {% set name = "Flask-Babel" %}
 {% set version = "2.0.0" %}
-{% set compress_type = "tar.gz" %}
-{% set hash_type = "sha256" %}
-{% set hash = "f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d" %}
-{% set build = 0 %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.{{ compress_type }}
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
-  {{ hash_type }}: {{ hash }}
-  patches:
-    fix_werkzeug.patch
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d
 
 build:
   noarch: python
-  number: {{ build }}
-  script: python -m pip install --no-deps --ignore-installed .
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
@@ -48,9 +41,10 @@ about:
   license_file: LICENSE
   license: BSD 3-Clause
   license_family: BSD
-  summary: 'Adds i18n/l10n support to Flask applications'
+  summary: Adds i18n/l10n support to Flask applications
   dev_url: https://github.com/python-babel/flask-babel
 
 extra:
   recipe-maintainers:
     - pmlandwehr
+    - xylar
